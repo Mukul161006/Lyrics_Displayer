@@ -80,8 +80,8 @@ os.startfile(full_song_path)
 # delayed_offset = 2.5
 
 # Starting the stopwatch
-dis_start_time = time.time()
 time.sleep(3)
+dis_start_time = time.time()
 
 # SYNCHRONISED DISPLAY || SYNCHRONISATION
 for target_timeStamp, target_lyrics in lyrics_timeline:
@@ -104,3 +104,9 @@ for target_timeStamp, target_lyrics in lyrics_timeline:
         print(f"{random_color}{char}", end='', flush=True)
         time.sleep(0.1) # 7 ms break before next letter display
     print('\n')
+    print(RESET, end="")
+
+# --- NEW CONNECTION TO GUI ---
+import taskbar_gui
+# Send the parsed data and the live clock to the frontend
+taskbar_gui.start_display(lyrics_timeline, dis_start_time)
