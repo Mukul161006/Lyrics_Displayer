@@ -71,12 +71,12 @@ os.startfile(full_song_path)
 
 # Starting the stopwatch
 dis_start_time = time.time()
+time.sleep(3)
 
 # SYNCHRONISED DISPLAY || SYNCHRONISATION
 for target_timeStamp, target_lyrics in lyrics_timeline:
 
     ## Starting the stopwatch then matching it to target time from where it should start displaying the lyrics.
-
     elapsed_time = (time.time() - dis_start_time)
 
     ## now actually SYNCING them.
@@ -84,9 +84,13 @@ for target_timeStamp, target_lyrics in lyrics_timeline:
 
         ### As long as elapsed_time is less than 1st timestamp, the script just waits and checks the clock again.
         ### And once the time_stamp is hit, it starts doing the same for the next time_stamp
-        time.sleep(3) # sleeps for 3 seconds
-        elapsed_time = (time.time() - dis_start_time)  # check again.
+        time.sleep(0.01) # sleeps for 0.01 ms
+        elapsed_time = (time.time() - dis_start_time)  # check again for next timeStamp.
 
-    ## Once the target_timeStamp is hit, we release our lyrics on display.
+    ## Once the target_timeStamp is hit, we release our lyrics on display in TypeWriter style.
     os.system("cls")
-    print(f"\n{target_lyrics}\n")
+    print('\t', end='')
+    for char in target_lyrics:
+        print(char, end='', flush=True)
+        time.sleep(0.07) # 7 ms break before next letter display
+    print('\n')
