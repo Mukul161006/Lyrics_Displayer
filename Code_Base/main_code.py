@@ -1,5 +1,6 @@
 import os
 import time
+import random
 
 # BOILER PLATE sort of kickstart later for a function.
 songs_folder_path = r"D:\mukul\Vision\Lyrics_Fav_Songs_Code\Fav_Songs"
@@ -20,7 +21,7 @@ for song_files in os.listdir(songs_folder_path):
         print("\n")
 
 
-# Variables to hold the path values.\
+# Variables to hold the path values.
 ## LYRICS PATH
 lrc_file = "tere liye.lrc"
 full_lrc_path = os.path.join(songs_folder_path, lrc_file)
@@ -28,6 +29,15 @@ full_lrc_path = os.path.join(songs_folder_path, lrc_file)
 ## SONG PATH
 song_name = available_songs[0]
 full_song_path = os.path.join(songs_folder_path, song_name)
+
+# COLORS for LYRICS
+COLORS = [
+    '\033[96m',  # CYAN
+    '\033[92m',  # GREEN
+    '\033[93m',  # YELLOW
+    '\033[91m'   # RED
+]
+RESET = '\033[0m'
 
 # MAIN FRAME LOGIC
 with open(full_lrc_path, "r", encoding="utf-8") as song_lrc_file:
@@ -89,8 +99,8 @@ for target_timeStamp, target_lyrics in lyrics_timeline:
 
     ## Once the target_timeStamp is hit, we release our lyrics on display in TypeWriter style.
     os.system("cls")
-    print('\t', end='')
+    random_color = random.choice(COLORS)
     for char in target_lyrics:
-        print(char, end='', flush=True)
-        time.sleep(0.07) # 7 ms break before next letter display
+        print(f"{random_color}{char}", end='', flush=True)
+        time.sleep(0.1) # 7 ms break before next letter display
     print('\n')
