@@ -2,7 +2,6 @@ import tkinter as tk
 import time
 import random
 
-
 def start_display(lyrics_timeline, start_time):
     # 1. Initialize the invisible window
     root = tk.Tk()

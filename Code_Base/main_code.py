@@ -16,19 +16,18 @@ for song_files in os.listdir(songs_folder_path):
     if song_files.endswith(".mp3"):
         available_songs.append(song_files)
         ## We do even want to list the songs with their serial numbers.
-        print(f"\n{len(available_songs)} => {song_files}\n")
-        print("-" * 20)
-        print("\n")
+        print(f"{len(available_songs)} => {song_files}")
 
+user_choice = int(input("\nEnter the song number to play : ")) - 1
 
 # Variables to hold the path values.
-## LYRICS PATH
-lrc_file = "tere liye.lrc"
-full_lrc_path = os.path.join(songs_folder_path, lrc_file)
-
 ## SONG PATH
-song_name = available_songs[0]
+song_name = available_songs[user_choice]
 full_song_path = os.path.join(songs_folder_path, song_name)
+
+## LYRICS PATH
+lrc_file = (song_name.split('.')[0] + ".lrc")
+full_lrc_path = os.path.join(songs_folder_path, lrc_file)
 
 # COLORS for LYRICS
 COLORS = [
@@ -76,11 +75,8 @@ os.system("cls") ## Will clear the terminal screen before we start.
 print(f"PLAYING : {available_songs[0]}")
 os.startfile(full_song_path)
 
-# Variable to help in syncing the timestamp correctly
-# delayed_offset = 2.5
-
 # Starting the stopwatch
-time.sleep(3)
+time.sleep(1)
 dis_start_time = time.time()
 
 # SYNCHRONISED DISPLAY || SYNCHRONISATION
@@ -94,7 +90,7 @@ for target_timeStamp, target_lyrics in lyrics_timeline:
 
         ### As long as elapsed_time is less than 1st timestamp, the script just waits and checks the clock again.
         ### And once the time_stamp is hit, it starts doing the same for the next time_stamp
-        time.sleep(0.01) # sleeps for 0.01 ms
+        time.sleep(0.01) # sleeps for 1 ms
         elapsed_time = (time.time() - dis_start_time)  # check again for next timeStamp.
 
     ## Once the target_timeStamp is hit, we release our lyrics on display in TypeWriter style.
@@ -102,11 +98,11 @@ for target_timeStamp, target_lyrics in lyrics_timeline:
     random_color = random.choice(COLORS)
     for char in target_lyrics:
         print(f"{random_color}{char}", end='', flush=True)
-        time.sleep(0.1) # 7 ms break before next letter display
+        time.sleep(0.05) # 5 ms break before next letter display
     print('\n')
     print(RESET, end="")
 
-# --- NEW CONNECTION TO GUI ---
-import taskbar_gui
-# Send the parsed data and the live clock to the frontend
-taskbar_gui.start_display(lyrics_timeline, dis_start_time)
+# # --- NEW CONNECTION TO GUI ---
+# import taskbar_gui
+# # Send the parsed data and the live clock to the frontend
+# taskbar_gui.start_display(lyrics_timeline, dis_start_time)
